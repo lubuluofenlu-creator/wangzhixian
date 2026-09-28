@@ -5,321 +5,149 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>王智贤 - 个人主页</title>
 <style>
-  /* 苹果官网经典字体与重置 */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-  }
+  /* 苹果风极简样式 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-    background-color: #f5f5f7;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+    background: #f5f5f7;
     color: #1d1d1f;
     line-height: 1.6;
-    overflow-x: hidden;
+    padding: 40px 20px;
   }
-
-  /* 顶部导航栏 - 毛玻璃效果 */
-  .nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    z-index: 1000;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-  .nav span { color: #1d1d1f; }
-
-  /* 首屏大标题区 */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 20px;
-    background: #fff;
-    padding-top: 48px;
-    position: relative;
-  }
-  .hero h1 {
-    font-size: clamp(56px, 15vw, 160px);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: #1d1d1f;
-    margin-bottom: 8px;
-  }
-  .hero .subtitle {
-    font-size: clamp(18px, 4vw, 28px);
-    color: #86868b;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-  .hero .tagline {
-    margin-top: 16px;
-    font-size: clamp(14px, 3vw, 18px);
-    color: #86868b;
-    font-weight: 400;
-  }
-  .scroll-hint {
-    position: absolute;
-    bottom: 40px;
-    font-size: 13px;
-    color: #86868b;
-    animation: bob 2s ease-in-out infinite;
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); opacity: 0.6; }
-    50% { transform: translateY(6px); opacity: 1; }
-  }
-
-  /* 通用区块 */
-  section {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 80px 24px;
-  }
-  section h2 {
-    font-size: clamp(24px, 5vw, 36px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #1d1d1f;
-    margin-bottom: 32px;
-  }
-
-  /* 个人档案卡片 */
-  .profile-card {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    background: #fff;
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
-  }
-  .profile-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  }
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #0071e3, #42a5f5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    font-weight: 600;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .profile-info h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #1d1d1f;
-    margin-bottom: 8px;
-  }
-  .profile-info p {
-    font-size: 15px;
-    color: #86868b;
-    line-height: 1.8;
-  }
-
-  /* 关于他 - 网格卡片 */
-  .facts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-  }
-  .fact-card {
+  .container { max-width: 800px; margin: 0 auto; }
+  .hero { text-align: center; padding: 60px 0; }
+  .hero h1 { font-size: 56px; font-weight: 700; letter-spacing: -0.03em; }
+  .hero p { color: #86868b; font-size: 20px; margin-top: 10px; }
+  .card {
     background: #fff;
     border-radius: 20px;
-    padding: 32px 24px;
-    text-align: center;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   }
-  .fact-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  }
-  .fact-card .icon {
-    font-size: 32px;
-    margin-bottom: 12px;
-  }
-  .fact-card .label {
-    font-size: 13px;
-    color: #86868b;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  .fact-card .value {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1d1d1f;
-  }
-
-  /* 详细简介文本 */
-  .about-text {
-    background: #fff;
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-  }
-  .about-text p {
-    font-size: 16px;
-    color: #424245;
-    margin-bottom: 20px;
-    line-height: 1.8;
-    text-align: justify;
-  }
-  .about-text p:last-child { margin-bottom: 0; }
-  .highlight {
-    color: #0071e3;
-    font-weight: 500;
-  }
-
-  /* 评论区 */
-  .comment-section {
-    background: #fff;
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-  }
-  .comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .comment-form input,
-  .comment-form textarea {
-    width: 100%;
-    padding: 14px 16px;
+  .card h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+  .card p { font-size: 16px; color: #424245; margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+  .highlight { color: #0071e3; font-weight: 500; }
+  
+  /* 表单 */
+  input, textarea {
+    width: 100%; padding: 12px;
     border: 1px solid #d2d2d7;
-    border-radius: 12px;
-    font-size: 15px;
-    font-family: inherit;
-    background: #f5f5f7;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    border-radius: 10px;
+    font-size: 15px; font-family: inherit;
+    background: #f5f5f7; margin-bottom: 12px;
     outline: none;
   }
-  .comment-form input:focus,
-  .comment-form textarea:focus {
-    border-color: #0071e3;
-    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.15);
-    background: #fff;
+  input:focus, textarea:focus { border-color: #0071e3; background: #fff; }
+  button {
+    background: #0071e3; color: #fff;
+    border: none; padding: 12px 24px;
+    border-radius: 99px; font-size: 15px;
+    font-weight: 500; cursor: pointer; float: right;
   }
-  .comment-form textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-  .comment-form button {
-    align-self: flex-end;
-    background: #0071e3;
-    color: #fff;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 980px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    font-family: inherit;
-  }
-  .comment-form button:hover {
-    background: #0077ed;
-    transform: scale(1.02);
-  }
-  .comment-form button:active {
-    transform: scale(0.98);
-  }
-
+  
   /* 评论列表 */
-  .comment-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-top: 1px solid #f0f0f2;
-    padding-top: 24px;
-  }
-  .comment-item {
-    display: flex;
-    gap: 16px;
-    animation: fadeIn 0.4s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .comment-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #e8e8ed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: #86868b;
-    flex-shrink: 0;
-  }
-  .comment-content {
-    flex: 1;
-  }
-  .comment-content .name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1d1d1f;
-    margin-bottom: 4px;
-  }
-  .comment-content .text {
-    font-size: 15px;
-    color: #424245;
-    line-height: 1.6;
-  }
-  .comment-content .time {
-    font-size: 12px;
-    color: #86868b;
-    margin-top: 6px;
-  }
-  .no-comment {
-    text-align: center;
-    color: #86868b;
-    font-size: 14px;
-    padding: 20px 0;
-  }
+  .comment-list { margin-top: 30px; border-top: 1px solid #f0f0f2; padding-top: 20px; }
+  .comment-item { margin-bottom: 20px; }
+  .comment-item .name { font-weight: 600; font-size: 14px; }
+  .comment-item .text { font-size: 15px; color: #424245; margin-top: 4px; }
+  .comment-item .time { font-size: 12px; color: #86868b; margin-top: 4px; }
+  .no-comment { color: #86868b; font-size: 14px; text-align: center; padding: 20px; }
+</style>
+</head>
+<body>
 
-  /* 页脚 */
-  footer {
-    text-align: center;
-    padding: 40px 20px;
-    font-size: 13px;
-    color: #86868b;
-    border-top: 1px solid #d2d2d7;
-    max-width: 980px;
-    margin: 0 auto;
-  }
+<div class="container">
+  <!-- 首屏 -->
+  <div class="hero">
+    <h1>王智贤</h1>
+    <p>WANG ZHI XIAN</p>
+  </div>
 
-  /* 移动端适配 */
-  @media (max-width: 768px) {
-    .profile-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 32px 24px;
+  <!-- 个人档案 -->
+  <div class="card">
+    <h2>个人档案</h2>
+    <p>
+      就读：济南新城实验高中<br>
+      身份：在读学生<br>
+      发型：清爽短碎发<br>
+      地区：山东 菏泽
+    </p>
+  </div>
+
+  <!-- 详细介绍 -->
+  <div class="card">
+    <h2>关于王智贤</h2>
+    <p>
+      <span class="highlight">王智贤</span>，<span class="highlight">济南新城实验高中</span>在读学生。他留着清爽短碎发，平日里看着安安静静，是个骨子里格外贪恋睡眠的男生。
+    </p>
+    <p>
+      他这项特殊本事在整个班级无人不晓——几乎没有困意铺垫，进入课堂之后说睡就睡，堪称<span class="highlight">秒睡</span>。往往老师刚开启授课，前一秒他还握着笔坐在座位上，下一秒脑袋就轻轻一垂，安稳进入梦乡，过渡快得连同桌都来不及提醒。
+    </p>
+    <p>
+      连堂课时这个情况更加明显，哪怕前一晚刻意早睡，只要身处安静的课堂氛围，睡意依旧会毫无预兆地席卷而来。有时候只是短暂闭一下眼，再睁眼已经过去了大半节课。每次被老师轻声点醒，他都会猛地回神，眼神还有些发懵，愣几秒才反应过来自己又睡着了。
+    </p>
+    <p>
+      不过究其根本，还是因为他<span class="highlight">晚上回家之后根本不肯早睡</span>。夜里家里安静下来，他反倒精神格外充沛，常常熬到很晚，舍不得早早躺下休息，这也直接造就了他课堂上出名的秒睡本领。
+    </p>
+    <p>
+      他来自山东菏泽，平时喜欢打游戏放松，他的三角洲行动游戏 ID 和视频号都是 <span class="highlight">iisknm</span>，想找他开黑或者加微信交流的同学，可以通过微信号 <span class="highlight">wzx-j061208</span> 联系他。
+    </p>
+  </div>
+
+  <!-- 评论区 -->
+  <div class="card">
+    <h2>💬 评论区</h2>
+    <form id="commentForm">
+      <input type="text" id="commentName" placeholder="你的名字（选填）">
+      <textarea id="commentText" placeholder="写下你想说的话..." required></textarea>
+      <button type="submit">发布评论</button>
+    </form>
+    <div style="clear:both;"></div>
+    <div class="comment-list" id="commentList">
+      <div class="no-comment">还没有评论，快来抢沙发吧！</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 本地评论功能
+  const STORAGE_KEY = 'wangzhixian_comments';
+  let comments = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const commentList = document.getElementById('commentList');
+
+  function renderComments() {
+    if (comments.length === 0) {
+      commentList.innerHTML = '<div class="no-comment">还没有评论，快来抢沙发吧！</div>';
+      return;
     }
-    .about-text, .comment-section {
+    commentList.innerHTML = comments.map(c => `
+      <div class="comment-item">
+        <div class="name">${c.name}</div>
+        <div class="text">${c.text}</div>
+        <div class="time">${c.time}</div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('commentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('commentName').value.trim() || '匿名用户';
+    const text = document.getElementById('commentText').value.trim();
+    if (!text) return;
+
+    const now = new Date();
+    const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+    comments.unshift({ name, text, time: timeStr });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+    this.reset();
+    renderComments();
+  });
+
+  renderComments();
+</script>
+
+</body>
+</html>
