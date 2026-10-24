@@ -2,422 +2,308 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>王智贤 - 个人主页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>王智贤 - 个人主页 & 游戏</title>
 <style>
-  /* ================= 苹果风核心样式 ================= */
-  :root {
-    --bg: #f5f5f7;
-    --card-bg: #ffffff;
-    --text: #1d1d1f;
-    --text-secondary: #86868b;
-    --accent: #0071e3;
-    --border: rgba(0,0,0,0.08);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+  :root { --bg: #f5f5f7; --card: #ffffff; --text: #1d1d1f; --sub: #86868b; --accent: #0071e3; --danger: #ff3b30; }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; -webkit-font-smoothing: antialiased; }
+  body { background: var(--bg); color: var(--text); line-height: 1.6; }
+  
+  .nav { position: fixed; top: 0; width: 100%; height: 48px; background: rgba(255,255,255,0.8); backdrop-filter: saturate(180%) blur(20px); display: flex; justify-content: space-around; align-items: center; font-size: 14px; font-weight: 500; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .nav a { color: var(--text); text-decoration: none; }
+  
+  .hero { min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 48px; background: #fff; }
+  .hero h1 { font-size: clamp(48px, 12vw, 100px); font-weight: 700; letter-spacing: -0.03em; }
+  .hero p { font-size: 18px; color: var(--sub); font-weight: 500; }
+  
+  .section { max-width: 980px; margin: 0 auto; padding: 30px 20px; }
+  h2 { font-size: 24px; font-weight: 700; margin-bottom: 15px; }
+  .card { background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+  
+  /* 变装区 */
+  .dress-up-stage { position: relative; width: 220px; height: 300px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; background: #e8e8ed; border-radius: 20px; overflow: hidden; }
+  .dress-bg { position: absolute; top: 20px; width: 180px; height: 120px; background: #2c3e50; border-radius: 4px; border: 4px solid #8B5A2B; z-index: 1; }
+  .dress-bg::after { content: "好好学习"; position: absolute; top: 40px; left: 60px; color: rgba(255,255,255,0.2); font-weight: bold; font-size: 18px; }
+  
+  .character { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; transition: all 0.3s; }
+  .head { width: 70px; height: 70px; background: #ffcc99; border-radius: 50%; position: relative; z-index: 5; }
+  .hair { position: absolute; top: -5px; width: 70px; height: 35px; background: #111; border-radius: 50px 50px 0 0; z-index: 6; }
+  .glasses { position: absolute; top: 25px; width: 60px; display: flex; justify-content: space-between; z-index: 7; left: 5px; }
+  .glass { width: 25px; height: 20px; border: 2px solid #333; border-radius: 5px; }
+  .body { width: 80px; height: 100px; border-radius: 15px 15px 0 0; margin-top: -10px; z-index: 4; position: relative; transition: background 0.3s; }
+  
+  .prop { position: absolute; z-index: 10; font-size: 28px; display: none; }
+  .prop-hat { top: -25px; left: 15px; }
+  .prop-mask { top: 35px; left: 15px; font-size: 35px; }
+  .prop-hand { top: 140px; right: -20px; font-size: 24px; }
+  .prop-bubble { top: -10px; right: -10px; font-size: 20px; }
 
-  /* 顶部导航（毛玻璃） */
-  .nav {
-    position: fixed; top: 0; width: 100%; height: 48px;
-    background: rgba(255,255,255,0.8);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    display: flex; justify-content: space-around; align-items: center;
-    font-size: 14px; font-weight: 500; z-index: 1000;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav a { color: var(--text); text-decoration: none; transition: color 0.2s; }
-  .nav a:hover { color: var(--accent); }
+  .outfit-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; max-height: 150px; overflow-y: auto; padding-bottom: 10px; }
+  .btn { background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 99px; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-small { padding: 6px 12px; font-size: 13px; background: #e8e8ed; color: #333; }
 
-  /* 首屏 Hero */
-  .hero {
-    min-height: 90vh; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
-    padding: 0 20px; padding-top: 48px; background: #fff;
-  }
-  .hero h1 { font-size: clamp(56px, 15vw, 140px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; }
-  .hero p { font-size: clamp(18px, 4vw, 28px); color: var(--text-secondary); font-weight: 500; }
-  .scroll-hint { margin-top: 40px; font-size: 14px; color: var(--text-secondary); animation: bob 2s infinite ease-in-out; }
-  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-
-  /* 通用区块 */
-  .section { max-width: 980px; margin: 0 auto; padding: 80px 24px; }
-  .section h2 { font-size: clamp(24px, 5vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 32px; }
-
-  /* 数据网格 */
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-  .grid-card {
-    background: var(--card-bg); border-radius: 20px; padding: 24px;
-    text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .grid-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-  .grid-card .icon { font-size: 32px; margin-bottom: 8px; }
-  .grid-card .label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
-  .grid-card .value { font-size: 18px; font-weight: 600; }
-
-  /* 标签页交互（苹果 Tab 切换） */
-  .tabs { display: flex; background: #e8e8ed; border-radius: 12px; padding: 4px; margin-bottom: 24px; }
-  .tab-btn {
-    flex: 1; text-align: center; padding: 10px; border: none; background: transparent;
-    border-radius: 8px; font-size: 15px; font-weight: 500; color: var(--text-secondary);
-    cursor: pointer; transition: all 0.3s;
-  }
-  .tab-btn.active { background: #fff; color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .tab-content { background: var(--card-bg); border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: none; animation: fadeIn 0.4s ease; }
-  .tab-content.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .tab-content p { margin-bottom: 16px; color: #424245; font-size: 16px; text-align: justify; }
-  .tab-content p:last-child { margin-bottom: 0; }
-  .highlight { color: var(--accent); font-weight: 500; }
-
-  /* 按钮 */
-  .btn {
-    background: var(--accent); color: #fff; border: none; padding: 14px 28px;
-    border-radius: 99px; font-size: 16px; font-weight: 500; cursor: pointer;
-    transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
-  }
-  .btn:hover { background: #0077ed; transform: scale(1.02); }
-  .btn:active { transform: scale(0.98); }
-  .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-  .btn-outline:hover { background: rgba(0,113,227,0.05); }
-
-  /* 小游戏 */
-  .game-card {
-    background: var(--card-bg); border-radius: 24px; padding: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03); text-align: center;
-  }
-  .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 10px; }
-  .game-score { font-size: 18px; font-weight: 600; color: var(--text); }
-  .game-status { font-size: 14px; color: var(--text-secondary); }
-  #gameCanvas { width: 100%; height: 200px; background: #f5f5f7; border-radius: 12px; display: block; cursor: pointer; touch-action: none; }
-
-  /* 评论区 */
-  .comment-box { background: var(--card-bg); border-radius: 24px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-  .comment-form { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
-  .comment-form input, .comment-form textarea {
-    width: 100%; padding: 14px 16px; border: 1px solid #d2d2d7; border-radius: 12px;
-    font-size: 15px; font-family: inherit; background: #f5f5f7; outline: none; transition: all 0.2s;
-  }
-  .comment-form input:focus, .comment-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); background: #fff; }
-  .comment-form button { align-self: flex-end; }
-  .comment-list { display: flex; flex-direction: column; gap: 20px; border-top: 1px solid #f0f0f2; padding-top: 24px; }
-  .comment-item { animation: fadeIn 0.4s ease; }
-  .comment-item .name { font-weight: 600; font-size: 15px; }
-  .comment-item .text { color: #424245; font-size: 15px; margin-top: 4px; line-height: 1.5; }
-  .comment-item .time { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
-  .no-comment { text-align: center; color: var(--text-secondary); font-size: 14px; padding: 20px; }
-
-  footer { text-align: center; padding: 40px 20px; font-size: 13px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 40px; }
-
-  @media (max-width: 768px) {
-    .section { padding: 60px 20px; }
-    .tab-content, .comment-box, .game-card { padding: 24px 20px; }
-    .comment-form button { align-self: stretch; width: 100%; }
-  }
+  /* 小游戏区 */
+  .game-card { background: var(--card); border-radius: 20px; padding: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); text-align: center; position: relative; overflow: hidden; }
+  #gameCanvas { width: 100%; height: 220px; background: #e0e0e0; border-radius: 12px; touch-action: none; }
+  #game-over { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.85); color: #fff; padding: 20px; border-radius: 12px; display: none; z-index: 10; width: 80%; }
+  
+  /* AI 聊天区 */
+  .chat-box { background: var(--card); border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; flex-direction: column; height: 300px; overflow: hidden; }
+  .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 15px; }
+  .msg.ai { background: #e8e8ed; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .msg.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .chat-input { display: flex; border-top: 1px solid #eee; padding: 10px; gap: 10px; background: #fafafa; }
+  .chat-input input { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 99px; outline: none; }
+  .chat-input button { background: var(--accent); color: #fff; border: none; border-radius: 99px; padding: 0 20px; font-weight: 600; }
+  footer { text-align: center; padding: 30px; font-size: 13px; color: var(--sub); }
 </style>
 </head>
 <body>
 
-<!-- 导航栏 -->
 <nav class="nav">
   <a href="#home">首页</a>
-  <a href="#profile">档案</a>
-  <a href="#about">简介</a>
+  <a href="#dressup">奇迹暖暖</a>
   <a href="#game">游戏</a>
-  <a href="#comments">评论</a>
+  <a href="#ai">对话</a>
 </nav>
 
-<!-- 首屏 -->
 <div class="hero" id="home">
   <h1>王智贤</h1>
   <p>WANG ZHI XIAN</p>
-  <div class="scroll-hint">↓ 向下滑动，了解更多 ↓</div>
 </div>
 
-<!-- 个人档案 -->
-<section class="section" id="profile">
-  <h2>个人档案</h2>
-  <div class="grid">
-    <div class="grid-card"><div class="icon">🏫</div><div class="label">学校</div><div class="value">济南新城实验高中</div></div>
-    <div class="grid-card"><div class="icon">🎓</div><div class="label">身份</div><div class="value">在读学生</div></div>
-    <div class"grid-card"><div class="icon">✂️</div><div class="label">发型</div><div class="value">清爽短碎发</div></div>
-        <div class="grid-card"><div class="icon">😴</div><div class="label">课堂表现</div><div class="value">秒睡绝技</div></div>
-      </div>
-    </section>
-
-    <!-- 交互式简介 -->
-    <section class="section" id="about">
-      <h2>关于他</h2>
-      <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(event, 'tab1')">☀️ 秒睡绝技</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab2')">📖 个人简介</button>
-      </div>
-      <div id="tab1" class="tab-content active">
-        <p><span class="highlight">王智贤</span>，<span class="highlight">济南新城实验高中</span>在读学生。他留着清爽短碎发，平日里看着安安静静，是个骨子里格外贪恋睡眠的男生。</p>
-        <p>他这项特殊本事在整个班级无人不晓——几乎没有困意铺垫，进入课堂之后说睡就睡，堪称<span class="highlight">秒睡</span>。往往老师刚开启授课，前一秒他还握着笔，下一秒脑袋就轻轻一垂，安稳进入梦乡，过渡快得连同桌都来不及提醒。</p>
-        <p>连堂课时情况更明显，哪怕前一晚刻意早睡，只要身处安静课堂，睡意依旧会毫无预兆地席卷而来。被老师轻声点醒时，他眼神还有些发懵，愣几秒才反应过来自己又睡着了。</p>
-      </div>
-      <div id="tab2" class="tab-content">
-        <p>不过究其根本，还是因为他<span class="highlight">晚上回家之后根本不肯早睡</span>。夜里家里安静下来，他反倒精神格外充沛，常常熬到很晚，舍不得早早躺下休息，这也直接造就了他课堂上出名的秒睡本领。</p>
-        <p>他来自山东菏泽，平日里看着安静，其实骨子里带着几分随性。除了上课偶尔“断电”之外，他也是个爱打游戏的普通男生，如果你和他聊起游戏，他整个人也会瞬间精神起来。</p>
-        <p>想和他交朋友的同学，可以在底部评论区留下你想说的话，或者点击下方一键复制他的联系方式。</p>
-      </div>
-    </section>
-
-    <!-- 小游戏 -->
-    <section class="section" id="game">
-      <h2>🎮 互动小游戏</h2>
-      <div class="game-card">
-        <div class="game-header">
-          <div class="game-score">得分: <span id="score">0</span></div>
-          <div class="game-status" id="gameStatus">点击屏幕或按空格键跳跃</div>
+<div class="section" id="dressup">
+  <h2>👔 王智贤的百变衣橱 (30套)</h2>
+  <div class="card" style="text-align: center;">
+    <div class="dress-up-stage">
+      <div class="dress-bg"></div>
+      <div class="character" id="character">
+        <div class="head">
+          <div class="hair" id="hair-style"></div>
+          <div class="glasses" id="glasses-style"><div class="glass"></div><div class="glass"></div></div>
+          <div class="prop prop-hat" id="prop-hat">🎓</div>
+          <div class="prop prop-mask" id="prop-mask">🕶️</div>
+          <div class="prop prop-bubble" id="prop-bubble">💤</div>
         </div>
-        <canvas id="gameCanvas"></canvas>
+        <div class="body" id="body-style"></div>
       </div>
-    </section>
+      <div class="prop prop-hand" id="prop-hand">📐</div>
+    </div>
+    <p style="font-size: 16px; font-weight: bold; margin-top: 15px;" id="outfit-name">当前：原版红蓝校服</p>
+    
+    <div class="outfit-controls" id="controls">
+      <!-- 按钮将由JS自动生成，防止代码太长卡死手机 -->
+    </div>
+  </div>
+</div>
 
-    <!-- 联系方式与一键复制 -->
-    <section class="section" id="contact">
-      <h2>联系他</h2>
-      <div class="grid" style="grid-template-columns: 1fr 1fr;">
-        <div class="grid-card" style="text-align: left;">
-          <div class="label">微信号</div>
-          <div class="value" style="margin-top: 8px;">wzx-j061208</div>
-          <button class="btn" onclick="copyText('wzx-j061208')" style="margin-top: 16px; width: 100%;">📋 复制微信号</button>
-        </div>
-        <div class="grid-card" style="text-align: left;">
-          <div class="label">视频号 / 三角洲 ID</div>
-          <div class="value" style="margin-top: 8px;">iisknm</div>
-          <button class="btn btn-outline" onclick="copyText('iisknm')" style="margin-top: 16px; width: 100%;">📋 复制游戏 ID</button>
-        </div>
+<div class="section" id="game">
+  <h2>🎮 课堂粉笔头狙击手</h2>
+  <div class="game-card">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 600; padding: 0 10px;">
+      <div>得分: <span id="score">0</span></div>
+      <div id="alert-msg" style="color: var(--danger); font-size: 14px;"></div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="game-over">
+      <h3 style="margin-bottom: 10px; color: var(--danger);">游戏结束</h3>
+      <p id="go-reason" style="font-size: 14px; margin-bottom: 15px;"></p>
+      <button class="btn" onclick="restartGame()">再玩一次</button>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="ai">
+  <h2>💬 与王智贤对话 (AI版)</h2>
+  <div class="chat-box">      <div class="chat-messages" id="chatMessages">
+        <div class="msg ai">我的老天爷啊，我是王智贤。今天穿得帅不帅？</div>
       </div>
-    </section>
-
-    <!-- 评论区 -->
-    <section class="section" id="comments">
-      <h2>💬 互动评论区</h2>
-      <div class="comment-box">
-        <form class="comment-form" id="commentForm">
-          <input type="text" id="commentName" placeholder="你的名字（选填）" maxlength="20">
-          <textarea id="commentText" placeholder="写下你想说的话，一起来互动吧..." maxlength="200" required></textarea>
-          <button type="submit" class="btn">发布评论</button>
-        </form>
-        <div class="comment-list" id="commentList">
-          <div class="no-comment">还没有评论，快来抢沙发吧！</div>
-        </div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="问他数学题，或者夸他衣服好看..." onkeypress="if(event.key==='Enter')sendMessage()">
+        <button onclick="sendMessage()">发送</button>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <footer>
-      © 2025 王智贤 · 个人主页 · Powered by GitHub Pages
-    </footer>
+  <footer>© 2025 王智贤 · Powered by GitHub Pages</footer>
 
-    <script>
-      /* --- 标签切换逻辑 --- */
-      function switchTab(evt, tabId) {
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
-      }
+  <script>
+    /* ================= 1. 30套变装逻辑 ================= */
+    const outfits = [
+      { name: '原版红蓝校服', color: 'linear-gradient(90deg, #c0392b 50%, #1a252f 50%)', hat: '', hand: '📐', mask: '' },
+      { name: 'JK制服', color: '#2c3e50', hat: '', hand: '🎀', mask: '' },
+      { name: '洛丽塔裙', color: '#ffb6c1', hat: '🎀', hand: '🍭', mask: '' },
+      { name: '黑西装', color: '#111', hat: '', hand: '💼', mask: '🕶️' },
+      { name: '登山冲锋衣', color: '#e67e22', hat: '🧢', hand: '🦯', mask: '' },
+      { name: '医生白大褂', color: '#fff', hat: '', hand: '💉', mask: '' },
+      { name: '宇航服', color: '#ddd', hat: '👨‍🚀', hand: '🚀', mask: '👩‍🚀' },
+      { name: '水手服', color: '#fff', hat: '⚓', hand: '⚓', mask: '' },
+      { name: '篮球服', color: '#f1c40f', hat: '', hand: '🏀', mask: '' },
+      { name: '法官黑袍', color: '#000', hat: '⚖️', hand: '🔨', mask: '' },
+      { name: '程序员格子衫', color: '#d35400', hat: '', hand: '💻', mask: '👓' },
+      { name: '黄袍加身', color: '#f39c12', hat: '👑', hand: '📜', mask: '' },
+      { name: '特种兵迷彩', color: '#556b2f', hat: '🪖', hand: '🔫', mask: '🕶️' },
+      { name: '厨师服', color: '#fff', hat: '👨‍🍳', hand: '🍳', mask: '' },
+      { name: '夏威夷沙滩装', color: '#1abc9c', hat: '👒', hand: '🍹', mask: '🕶️' },
+      { name: '钢铁侠战甲', color: '#e74c3c', hat: '', hand: '🤖', mask: '🤖' },
+      { name: '美国队长', color: '#3498db', hat: '', hand: '🛡️', mask: '' },
+      { name: '圣诞装', color: '#c0392b', hat: '🎅', hand: '🎁', mask: '' },
+      { name: '吸血鬼伯爵', color: '#8e44ad', hat: '', hand: '🍷', mask: '' },
+      { name: '魔法师袍', color: '#9b59b6', hat: '🧙‍♂️', hand: '🪄', mask: '' },
+      { name: '侦探风衣', color: '#7f8c8d', hat: '🕵️‍♂️', hand: '🔍', mask: '' },
+      { name: '忍者夜行衣', color: '#2c3e50', hat: '🥷', hand: '🗡️', mask: '' },
+      { name: '赛博朋克', color: '#00ffff', hat: '', hand: '🔫', mask: '🥽' },
+      { name: '睡神专属', color: '#bdc3c7', hat: '💤', hand: '☕', mask: '💤' },
+      { name: '小黄鸭睡衣', color: '#f1c40f', hat: '🐥', hand: '🛏️', mask: '' },
+      { name: '钢铁直男T恤', color: '#ecf0f1', hat: '', hand: '🤖', mask: '' },
+      { name: '黑客帝国', color: '#111', hat: '', hand: '💊', mask: '🕶️' },
+      { name: '海贼王草帽', color: '#e74c3c', hat: '👒', hand: '🏴‍☠️', mask: '' },
+      { name: '钢铁爱国者', color: '#3498db', hat: '', hand: '🇺🇸', mask: '' },
+      { name: '粉红猛男', color: '#fd79a8', hat: '🎀', hand: '💖', mask: '' }
+    ];
 
-      /* --- 一键复制逻辑 --- */
-      function copyText(text) {
-        navigator.clipboard.writeText(text).then(() => {
-          alert('复制成功：' + text);
-        }).catch(() => {
-          const textarea = document.createElement('textarea');
-          textarea.value = text;
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textarea);
-          alert('复制成功：' + text);
-        });
-      }
+    const controls = document.getElementById('controls');
+    const bodyStyle = document.getElementById('body-style');
+    const propHat = document.getElementById('prop-hat');
+    const propHand = document.getElementById('prop-hand');
+    const propMask = document.getElementById('prop-mask');
+    const outfitName = document.getElementById('outfit-name');
 
-      /* --- 评论功能逻辑 --- */
-      const STORAGE_KEY = 'wangzhixian_comments';
-      let comments = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      const commentList = document.getElementById('commentList');
-      const commentForm = document.getElementById('commentForm');
-
-      function renderComments() {
-        if (comments.length === 0) {
-          commentList.innerHTML = '<div class="no-comment">还没有评论，快来抢沙发吧！</div>';
-          return;
-        }
-        commentList.innerHTML = comments.map(c => `
-          <div class="comment-item">
-            <div class="name">${c.name}</div>
-            <div class="text">${c.text}</div>
-            <div class="time">${c.time}</div>
-          </div>
-        `).join('');
-      }
-
-      commentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('commentName').value.trim() || '匿名用户';
-        const text = document.getElementById('commentText').value.trim();
-        if (!text) return;
-
-        const now = new Date();
-        const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
-        comments.unshift({ name, text, time: timeStr });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-        this.reset();
-        renderComments();
-      });
-
-      renderComments();
-
-      /* ================= 小游戏核心逻辑 ================= */
-      const canvas = document.getElementById('gameCanvas');
-      const ctx = canvas.getContext('2d');
-      const scoreEl = document.getElementById('score');
-      const statusEl = document.getElementById('gameStatus');
-
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      const W = rect.width;
-      const H = rect.height;
-
-      let gameState = 'waiting';
-      let score = 0;
-      let frames = 0;
-
-      const player = {
-        x: 40, y: H - 50, width: 30, height: 30,
-        vy: 0, gravity: 0.6, jumpPower: -11, isJumping: false
-      };
-
-      let obstacles = [];
-      const obstacleSpeed = 5;
-      const spawnRate = 90;
-
-      function drawPlayer() {
-        ctx.fillStyle = '#0071e3';
-        ctx.beginPath();
-        ctx.roundRect(player.x, player.y, player.width, player.height, 8);
-        ctx.fill();
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 16px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('困', player.x + 15, player.y + 15);
-      }
-
-      function drawObstacles() {
-        ctx.fillStyle = '#86868b';
-        obstacles.forEach(ob => {
-          ctx.beginPath();
-          ctx.roundRect(ob.x, ob.y, ob.width, ob.height, 4);
-          ctx.fill();
-        });
-      }
-
-      function updateGame() {
-      if (gameState !== 'playing') return;
-
-      frames++;
-      player.vy += player.gravity;
-      player.y += player.vy;
-
-      if (player.y >= H - 50) {
-        player.y = H - 50;
-        player.vy = 0;
-        player.isJumping = false;
-      }
-
-      if (frames % spawnRate === 0) {
-        obstacles.push({ x: W, y: H - 40, width: 20, height: 30 });
-      }
-
-      for (let i = obstacles.length - 1; i >= 0; i--) {
-        let ob = obstacles[i];
-        ob.x -= obstacleSpeed;
-
-        if (ob.x + ob.width < player.x && !ob.passed) {
-          ob.passed = true;
-          score += 10;
-          scoreEl.textContent = score;
-        }
-
-        if (
-          player.x < ob.x + ob.width &&
-          player.x + player.width > ob.x &&
-          player.y < ob.y + ob.height &&
-          player.y + player.height > ob.y
-        ) {
-          gameState = 'gameover';
-          statusEl.textContent = '游戏结束！点击屏幕重新开始';
-        }
-
-        if (ob.x + ob.width < 0) {
-          obstacles.splice(i, 1);
-        }
-      }
-    }
-
-    function render() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.strokeStyle = '#d2d2d7';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, H - 20);
-      ctx.lineTo(W, H - 20);
-      ctx.stroke();
-
-      drawPlayer();
-      drawObstacles();
-    }
-
-    function gameLoop() {
-      updateGame();
-      render();
-      requestAnimationFrame(gameLoop);
-    }
-
-    function jump() {
-      if (gameState === 'waiting' || gameState === 'gameover') {
-        gameState = 'playing';
-        score = 0;
-        frames = 0;
-        obstacles = [];
-        player.y = H - 50;
-        player.vy = 0;
-        player.isJumping = false;
-        scoreEl.textContent = '0';
-        statusEl.textContent = '点击或按空格跳跃！';
-        return;
-      }
-      if (gameState === 'playing' && !player.isJumping) {
-        player.vy = player.jumpPower;
-        player.isJumping = true;
-      }
-    }
-
-    window.addEventListener('keydown', e => {
-      if (e.code === 'Space') { e.preventDefault(); jump(); }
+    outfits.forEach((outfit, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-small';
+      btn.innerText = outfit.name;
+      btn.onclick = () => changeOutfit(index);
+      controls.appendChild(btn);
     });
-    canvas.addEventListener('touchstart', e => { e.preventDefault(); jump(); });
-    canvas.addEventListener('mousedown', jump);
 
-    gameLoop();
-  </script>
+    function changeOutfit(index) {
+      const o = outfits[index];
+      bodyStyle.style.background = o.color;
+      outfitName.innerText = '当前：' + o.name;
+      if (o.hat) { propHat.style.display = 'block'; propHat.innerText = o.hat; } else { propHat.style.display = 'none'; }
+      if (o.hand) { propHand.style.display = 'block'; propHand.innerText = o.hand; } else { propHand.style.display = 'none'; }
+      if (o.mask) { propMask.style.display = 'block'; propMask.innerText = o.mask; } else { propMask.style.display = 'none'; }
+    }
 
+    /* ================= 2. 小游戏逻辑 ================= */
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resizeCanvas() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+    let score = 0, isGameOver = false, chalks = [], teacherLook = 0, teacherTimer = 0;
+    const target = { x: 0, y: 0, w: 50, h: 100, hp: 100 };
+
+    function resetTarget() { target.x = W * 0.7; target.y = H * 0.6; target.hp = 100; }
+    resetTarget();
+
+    function fire(e) {
+      if (isGameOver) return;
+      if (teacherLook === 1) { endGame("老师回头时扔粉笔，被当场抓获！"); return; }
+      const rect = canvas.getBoundingClientRect();
+      let cx = e.touches ? e.touches[0].clientX : e.clientX;
+      let cy = e.touches ? e.touches[0].clientY : e.clientY;
+      chalks.push({ x: W * 0.4, y: H + 10, tx: cx - rect.left, ty: cy - rect.top, speed: 20 });
+    }
+    canvas.addEventListener('mousedown', fire);
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); fire(e); });
+
+    function endGame(reason) {
+      isGameOver = true;
+      document.getElementById('game-over').style.display = 'block';
+      document.getElementById('go-reason').innerText = reason;
+    }
+    function restartGame() {
+      score = 0; isGameOver = false; chalks = []; teacherLook = 0; teacherTimer = 0;
+      document.getElementById('score').innerText = score;
+      document.getElementById('alert-msg').innerText = "";
+      document.getElementById('game-over').style.display = 'none';
+      resetTarget();
+    }
+
+    function drawGame() {
+      if (isGameOver) return;
+      ctx.fillStyle = '#f4f4f4'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#2c3e50'; ctx.fillRect(W * 0.05, H * 0.2, W * 0.3, H * 0.4);
+      
+      let tx = W * 0.2, ty = H * 0.7;
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.roundRect(tx - 20, ty, 40, 80, 5); ctx.fill();
+      ctx.fillStyle = teacherLook === 1 ? '#ff3b30' : '#ffcc99';
+      ctx.beginPath(); ctx.arc(tx, ty - 15, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#333'; ctx.beginPath(); ctx.arc(tx, ty - 20, 15, Math.PI, 0); ctx.fill();
+
+      let cx = target.x, cy = target.y;
+      ctx.fillStyle = '#c0392b'; ctx.beginPath(); ctx.roundRect(cx - target.w/2, cy - target.h/2, target.w, target.h, 5); ctx.fill();
+      ctx.fillStyle = '#ffcc99'; ctx.beginPath(); ctx.arc(cx, cy - target.h/2 - 15, 20, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(cx, cy - target.h/2 - 20, 20, Math.PI, 0); ctx.fill();
+      ctx.fillStyle = '#333'; ctx.font = '12px Arial'; ctx.textAlign = 'center'; ctx.fillText("x_x", cx, cy - target.h/2 - 10);
+
+      teacherTimer++;
+      if (teacherLook === 0 && teacherTimer > 100) {
+        teacherLook = 1; teacherTimer = 0; document.getElementById('alert-msg').innerText = "⚠️ 老师回头了！";
+      } else if (teacherLook === 1 && teacherTimer > 60) {
+        teacherLook = 0; teacherTimer = 0; document.getElementById('alert-msg').innerText = "";
+        }
+
+        for (let i = chalks.length - 1; i >= 0; i--) {
+            let c = chalks[i];
+            let dx = c.tx - c.x, dy = c.ty - c.y, dist = Math.hypot(dx, dy);
+            if (dist < c.speed) {
+                if (c.tx > target.x - target.w / 2 && c.tx < target.x + target.w / 2 && c.ty > target.y - target.h / 2 - 40 && c.ty < target.y + target.h / 2) {
+                    score += 10; document.getElementById('score').innerText = score;
+                    target.hp -= 25;
+                    if (target.hp <= 0) { target.x = W * 0.5 + Math.random() * W * 0.3; target.hp = 100; }
+                }
+                chalks.splice(i, 1);
+            } else {
+                c.x += (dx / dist) * c.speed; c.y += (dy / dist) * c.speed;
+                ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c.x, c.y, 4, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#ccc'; ctx.stroke();
+            }
+        }
+        requestAnimationFrame(drawGame);
+    }
+    drawGame();
+
+    /* ================= 3. 迷你 AI 聊天逻辑 ================= */
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+
+    function sendMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        chatInput.value = '';
+        setTimeout(() => { addMessage(getAIReply(text), 'ai'); }, 600);
+    }
+
+    function addMessage(text, type) {
+        const div = document.createElement('div');
+        div.className = `msg ${type}`;
+        div.innerText = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function getAIReply(input) {
+        const lower = input.toLowerCase();
+        if (lower.includes('衣服') || lower.includes('帅') || lower.includes('穿')) {
+            return "我的老天爷啊，你看我下面这30套衣服，连JK和洛丽塔我都能驾驭，666吧！";
+        }
+        if (lower.includes('数学') || lower.includes('题') || lower.includes('考')) {
+            const arr = ["我的老天爷啊，数学题？拿过来我看看，这题闭着眼也能解！", "666，我数学可是班里顶尖的。", "nb了，这道题用洛必达法则秒解啊！"];
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        if (lower.includes('睡') || lower.includes('困')) {
+            const arr = ["别提上课，一提我就眼皮打架。", "只要老师一开口，我三秒内就能入睡。", "不要叫醒我，除非有数学竞赛题。"];
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        const defaults = ["我的老天爷啊，你在说什么？", "666，确实是这样。", "nb了，听不懂，我要去补觉了。", "困了，有事下课说。"];
+        return defaults[Math.floor(Math.random() * defaults.length)];
+    }
+</script>
 </body>
 </html>
