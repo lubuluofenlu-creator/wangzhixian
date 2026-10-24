@@ -27,7 +27,7 @@ a { color: inherit; text-decoration: none; }
 /* 导航与布局 */
 .nav { position: fixed; top: 0; width: 100%; height: 50px; background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; font-size: 14px; font-weight: 500; z-index: 1000; }
 .nav a:hover { color: var(--accent); }
-.reveal { opacity: 0; transform: translateY(40px) scale(0.95); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+.reveal { opacity: 1; transform: translateY(40px) scale(0.95); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
 .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 50px; }
 .hero h1 { font-size: clamp(60px, 15vw, 140px); font-weight: 800; letter-spacing: -0.05em; background: linear-gradient(135deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -168,11 +168,20 @@ let cx=target.x,cy=target.y;ctx.fillStyle='#c0392b';ctx.beginPath();ctx.roundRec
 for(let i=chalks.length-1;i>=0;i--){let c=chalks[i];let dx=c.tx-c.x,dy=c.ty-c.y,dist=Math.hypot(dx,dy);if(dist<c.sp){if(c.tx>target.x-target.w/2&&c.tx<target.x+target.w/2&&c.ty>target.y-target.h/2-40&&c.ty<target.y+target.h/2){score+=10;document.getElementById('score').innerText=score;target.hp-=25;if(target.hp<=0){target.x=W*0.5+Math.random()*W*0.3;target.hp=100;}}chalks.splice(i,1);}else{c.x+=(dx/dist)*c.sp;c.y+=(dy/dist)*c.sp;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(c.x,c.y,4,0,Math.PI*2);ctx.fill();}}
 requestAnimationFrame(drawGame);}drawGame();const chatMsgs=document.getElementById('chatMessages'),chatIn=document.getElementById('chatInput');function sendMessage(){const text=chatIn.value.trim();if(!text)return;addMsg(text,'user');chatIn.value='';setTimeout(()=>{addMsg(getReply(text),'ai');},600);}
 function addMsg(t,type){const d=document.createElement('div');d.className=`msg ${type}`;d.innerText=t;chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight;}
-function getReply(inp){const l=inp.toLowerCase();if(l.includes('数学')||l.includes('题')){return "我的老天爷啊，数学题？闭着眼也能解！666";}if(l.includes('睡')||l.includes('困')){return "一提上课我就眼皮打架，nb了。";}return "我的老天爷啊，你在说什么？困了，下课说。";}document.addEventListener('contextmenu', e => e.preventDefault());
-window.addEventListener('offline', () => document.getElementById('offline-toast').style.display = 'block');
-window.addEventListener('online', () => document.getElementById('offline-toast').style.display = 'none');
-function triggerSecurityAlert(reason) { document.getElementById('alert-reason').innerText = reason; document.getElementById('security-alert').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-document.addEventListener('keydown', e => { if (e.key === 'F12' || e.ctrlKey && e.shiftKey && e.key === 'I') { e.preventDefault(); triggerSecurityAlert("安全系统拦截警告"); } });
+function getReply(inp){const l=inp.toLowerCase();if(l.includes('数学')||l.includes('题')){return "我的老天爷啊，数学题？闭着眼也能解！666";}if(l.includes('睡')||l.includes('困')){return "一提上课我就眼皮打架，nb了。";}return "我的老天爷啊，你在说什么？困了，下课说。";}
+</script><script>
+// 备用保护盾：拦截错误，防止网页卡死
+window.onerror = function(msg) {
+    console.log("备用系统拦截错误:", msg);
+    return true; // 阻止报错破坏网页
+};
+// 延迟检测：如果3秒后游戏没加载出来，提示刷新
+setTimeout(function() {
+    var c = document.getElementById('gameCanvas');
+    if (c && c.offsetWidth === 0) {
+        c.parentNode.innerHTML += "<p style='color:#ff3b30;font-size:14px;text-align:center;'>⚠️ 游戏加载超时，请刷新重试</p>";
+    }
+}, 3000);
 </script>
 </body>
 </html>
