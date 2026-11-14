@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#05070d">
+<title>王智贤 · 个人主页</title>
+<style>
+:root{--bg:#05070d;--text:#f5f7fb;--sub:#a8b0c0;--blue:#4da3ff;--red:#d94a4a;--glass:rgba(20,27,40,.62);--line:rgba(255,255,255,.13)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input{font:inherit}.ambient{position:fixed;inset:0;z-index:-2;overflow:hidden;background:radial-gradient(ellipse at 15% 15%,#10294b 0,transparent 42%),radial-gradient(ellipse at 90% 85%,#35171d 0,transparent 38%),#05070d}.ambient:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent)}
+nav{position:fixed;z-index:50;top:0;left:0;right:0;display:flex;justify-content:center;gap:clamp(12px,3vw,34px);padding:13px 10px;background:rgba(5,7,13,.68);backdrop-filter:blur(22px);border-bottom:1px solid var(--line);font-size:13px;color:#dce5f4}nav a:hover{color:var(--blue)}
+.hero{min-height:78vh;display:grid;place-content:center;text-align:center;padding:90px 20px 45px}.eyebrow{letter-spacing:.28em;text-transform:uppercase;color:var(--blue);font-size:12px}.hero h1{font-size:clamp(58px,13vw,130px);line-height:1.05;letter-spacing:-.07em;margin:15px 0;background:linear-gradient(130deg,#fff 25%,#aabbd4 65%,#5c9fe8);color:transparent;background-clip:text}.hero p{color:var(--sub);margin:0}
+.section{width:min(1040px,calc(100% - 36px));margin:0 auto;padding:45px 0;scroll-margin-top:70px}h2{font-size:clamp(23px,4vw,32px);margin:0 0 20px}.glass{background:var(--glass);border:1px solid var(--line);border-radius:25px;padding:clamp(18px,4vw,30px);backdrop-filter:blur(24px);box-shadow:0 18px 55px #0005}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px;margin-bottom:16px}.tile{padding:20px;border-radius:18px;background:#ffffff0a;border:1px solid #ffffff0b}.tile b{display:block;font-size:17px}.tile span{font-size:26px}.muted{color:var(--sub)}.blue{color:var(--blue)}
+.btn{border:1px solid #ffffff24;background:linear-gradient(135deg,#267ed0,#14549b);color:white;padding:10px 17px;border-radius:999px;cursor:pointer;transition:.2s}.btn:hover{filter:brightness(1.15);transform:translateY(-1px)}.btn:active{transform:scale(.97)}.btn.secondary{background:#ffffff12}.btn-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+#avatar-stage{height:440px;max-width:640px;width:100%;margin:auto;border-radius:22px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 65%,#18345588,transparent 55%),linear-gradient(145deg,#0c1422,#080b12);border:1px solid var(--line);touch-action:pan-y}
+#avatar-stage canvas{display:block;width:100%;height:100%}.stage-hint{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#aebbd0;font-size:12px;pointer-events:none}
+#avatar-status{margin:14px auto 8px;text-align:center;color:#dce8f8}.quote{max-width:560px;margin:12px auto 18px;text-align:center;padding:12px 16px;border-radius:14px;background:#2879c522;border:1px solid #4da3ff44}
+.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.game{position:relative}.game canvas{display:block;width:100%;height:260px;background:linear-gradient(#101a2a,#080b12);border-radius:16px;touch-action:manipulation}.game-top{display:flex;justify-content:space-between;margin-bottom:10px}.game-over{display:none;position:absolute;inset:50px 10px 10px;background:#03060bea;border-radius:16px;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.chat{height:400px;display:flex;flex-direction:column;padding:0;overflow:hidden}.messages{padding:18px;flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px}.msg{max-width:84%;padding:10px 14px;border-radius:17px;background:#ffffff12;align-self:flex-start;white-space:pre-wrap;overflow-wrap:anywhere}.msg.user{align-self:flex-end;background:#1769b8}.chat-form{display:flex;gap:9px;padding:14px;border-top:1px solid var(--line)}.chat-form input{min-width:0;flex:1;border:1px solid var(--line);border-radius:99px;background:#ffffff0b;color:white;padding:11px 15px;outline:none}
+#giscus-box{min-height:120px}footer{text-align:center;color:#7f8a9d;padding:35px 15px;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:600px){nav{gap:13px;font-size:11px;overflow:auto;justify-content:flex-start;padding-left:14px}#avatar-stage{height:390px}.section{width:calc(100% - 26px)}.hero{min-height:70vh}.chat{height:430px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<nav><a href="#home">首页</a><a href="#profile">档案</a><a href="#avatar">3D数字人</a><a href="#game">小游戏</a><a href="#ai">对话</a><a href="#comments">评论</a></nav>
+<header class="hero" id="home"><div class="eyebrow">PERSONAL DIGITAL SPACE</div><h1>王智贤</h1><p>济南新城实验高中 · 在逃睡神</p></header>
+
+<section class="section" id="profile"><h2>👤 个人档案</h2>
+<div class="grid">
+<div class="tile"><span>🏫</span><b>济南新城实验高中</b><small class="muted">校园日常</small></div>
+<div class="tile"><span>📐</span><b>数学学霸</b><small class="muted">遇到难题先研究</small></div>
+<div class="tile"><span>😴</span><b>秒睡绝技</b><small class="muted">课堂困意来得快</small></div>
+</div>
+<div class="glass"><p><strong class="blue">王智贤</strong>，济南新城实验高中的一名学生。清爽短发、黑框眼镜，看起来安静，课堂上偶尔容易犯困；但遇到数学题，又会认真研究起来。晚上总想再多玩一会儿，第二天便和瞌睡虫展开较量。</p>
+<div class="grid" style="margin:12px 0 0">
+<div class="tile"><b>wzx-j061208</b><button class="btn" style="width:100%;margin-top:10px" onclick="copyText('wzx-j061208')">复制微信号</button></div>
+<div class="tile"><b>iisknm</b><button class="btn" style="width:100%;margin-top:10px" onclick="copyText('iisknm')">复制游戏 ID</button></div>
+</div></div></section>
+
+<section class="section" id="avatar"><h2>🧑‍🚀 王智贤 · 3D 数字人</h2><div class="glass">
+<div id="avatar-stage"><div class="stage-hint">拖动旋转 · 滚动缩放 · 点击下方按钮切换动作</div></div>
+<div id="avatar-status">状态：待机中</div><div class="quote" id="avatar-quote">我的老天爷啊，今天又要上课了吗？</div>
+<div class="controls">
+<button class="btn secondary" onclick="setExpression('normal')">正常</button><button class="btn secondary" onclick="setExpression('sleepy')">困倦</button><button class="btn secondary" onclick="setExpression('surprised')">惊讶</button><button class="btn secondary" onclick="setExpression('annoyed')">无语</button>
+<button class="btn secondary" onclick="playAction('nod')">点头</button><button class="btn secondary" onclick="playAction('wave')">挥手</button><button class="btn secondary" onclick="playAction('reset')">回正视角</button>
+</div>
+<div class="controls" id="outfit-controls">
+<button class="btn" onclick="setOutfit(0)">红蓝校服</button><button class="btn" onclick="setOutfit(1)">黑色休闲</button><button class="btn" onclick="setOutfit(2)">白色衬衫</button><button class="btn" onclick="setOutfit(3)">科幻制服</button><button class="btn" onclick="setOutfit(4)">运动装</button><button class="btn secondary" onclick="randomOutfit()">随机穿搭</button>
+</div></div></section>
+
+<section class="section" id="game"><h2>🎮 课堂粉笔头小游戏</h2><div class="glass game">
+<div class="game-top"><b>得分：<span id="score">0</span></b><span id="game-alert" class="muted">老师背对着你时再点击目标</span></div>
+<canvas id="gameCanvas" aria-label="课堂小游戏画布"></canvas>
+<div class="game-over" id="game-over"><h3>游戏结束</h3><p id="game-reason"></p><button class="btn" onclick="restartGame()">再玩一次</button></div>
+<p class="muted" style="font-size:13px">玩法：老师背对时点击画布投出粉笔；老师回头时不要点击。纯虚构小游戏。</p>
+</div></section>
+
+<section class="section" id="ai"><h2>💬 与王智贤对话</h2><div class="glass chat">
+<div class="messages" id="chatMessages"><div class="msg">我的老天爷啊，我是王智贤。数学题拿来看看，别的事也能聊两句。</div></div>
+<form class="chat-form" id="chatForm"><input id="chatInput" autocomplete="off" placeholder="问他数学题，或者聊聊日常……"><button class="btn" type="submit">发送</button></form>
+</div><p class="muted" style="font-size:12px;margin:8px 4px">当前为本地关键词回复演示，不会连接外部大语言模型。</p></section>
+
+<section class="section" id="comments"><h2>💬 互动评论区</h2><div class="glass" id="giscus-box">
+<script src="https://giscus.app/client.js"
+data-repo="lubuluofenlu-creator/wangzhixian"
+data-repo-id="R_kgDOUv4b0Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOUv4b0c4DJfvv"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="1"
+data-input-position="top"
+data-theme="dark_dimmed"
+data-lang="zh-CN"
+crossorigin="anonymous" async></script>
+</div></section>
+<footer>© 2026 王智贤 · 个人主页</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+"use strict";
+function copyText(value){
+  if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(value).then(()=>alert("复制成功："+value)).catch(()=>fallbackCopy(value));}
+  else fallbackCopy(value);
+}
+function fallbackCopy(value){const el=document.createElement("textarea");el.value=value;document.body.appendChild(el);el.select();try{document.execCommand("copy");alert("复制成功："+value);}catch(e){alert("复制失败，请手动复制："+value);}el.remove();}
+
+/* Three.js 程序化角色：不依赖外部 GLB 文件 */
+const stage=document.getElementById("avatar-stage");
+let renderer,scene,camera,avatar,head,eyes=[],mouth,bodyMesh,armL,armR,expression="normal",action="idle",outfitIndex=0,clock;
+function roundedMaterial(color,roughness=.72){return new THREE.MeshStandardMaterial({color,roughness,metalness:.03});}
+function makeMesh(geo,mat,parent,x=0,y=0,z=0){const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);parent.add(m);return m;}
+function buildAvatar(){
+ if(!window.THREE){stage.innerHTML="<p style='padding:30px;text-align:center'>3D 库加载失败，请检查网络后刷新页面。</p>";return;}
+ scene=new THREE.Scene();scene.background=new THREE.Color("#0b1422");
+ camera=new THREE.PerspectiveCamera(34,stage.clientWidth/stage.clientHeight,.1,100);camera.position.set(0,1.55,7.5);
+ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(stage.clientWidth,stage.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;stage.prepend(renderer.domElement);
+ scene.add(new THREE.HemisphereLight(0xc9e2ff,0x172033,2.1));
+ const key=new THREE.DirectionalLight(0xffffff,2.3);key.position.set(-3,5,5);scene.add(key);
+ const rim=new THREE.PointLight(0x398fff,22,12);rim.position.set(3,2,2);scene.add(rim);
+ avatar=new THREE.Group();scene.add(avatar);
+ const skin=roundedMaterial("#e9bd9e"),hair=roundedMaterial("#17191e"),dark=roundedMaterial("#151923"),white=roundedMaterial("#f2f4f7"),red=roundedMaterial("#a92e35"),navy=roundedMaterial("#1d344e");
+ // torso and neck
+ bodyMesh=new THREE.Group();avatar.add(bodyMesh);
+ makeMesh(new THREE.CapsuleGeometry(.66,.95,6,12),navy,bodyMesh,0,.35,0).scale.set(1.05,1,0.62);
+ // 参考照片：红色校服前襟、藏蓝色袖子与深色内搭
+ const jacketRed=roundedMaterial("#b51f36"), jacketDark=roundedMaterial("#101722"), trim=roundedMaterial("#e8eaf0");
+ makeMesh(new THREE.BoxGeometry(.78,.94,.075),jacketRed,bodyMesh,-.205,.38,.405);
+ makeMesh(new THREE.BoxGeometry(.78,.94,.075),jacketRed,bodyMesh,.205,.38,.405);
+ makeMesh(new THREE.BoxGeometry(.045,1.02,.035),jacketDark,bodyMesh,0,.37,.455);
+ // 校服胸前小圆形校徽（抽象装饰，不复制可辨识校徽）
+ const badge=makeMesh(new THREE.CircleGeometry(.105,28),trim,bodyMesh,.48,.38,.45);
+ badge.material.side=THREE.DoubleSide;
+ const badgeCore=makeMesh(new THREE.CircleGeometry(.065,24),jacketRed,bodyMesh,.48,.38,.458);
+ badgeCore.material.side=THREE.DoubleSide;
+ // 深色连帽内搭与领口
+ makeMesh(new THREE.TorusGeometry(.29,.085,10,28),jacketDark,bodyMesh,0,1.02,.08).scale.set(1,.62,1);
+ makeMesh(new THREE.CylinderGeometry(.18,.2,.28,20),skin,avatar,0,1.35,0);
+ // head
+ head=new THREE.Group();head.position.set(0,2.05,0);avatar.add(head);
+ makeMesh(new THREE.SphereGeometry(.72,32,24),skin,head,0,0,0).scale.set(.79,1.07,.75);
+ // hair cap and fringe
+ makeMesh(new THREE.SphereGeometry(.75,32,20,0,Math.PI*2,0,Math.PI*.58),hair,head,0,.22,-.015).scale.set(.9,.83,.9);
+ for(let i=0;i<7;i++){const x=-.48+i*.16;makeMesh(new THREE.SphereGeometry(.16,16,12),hair,head,x,.48+Math.sin(i*.8)*.04,.43).scale.set(.8,1.15,.55);}
+ // ears
+ for(const s of [-1,1])makeMesh(new THREE.SphereGeometry(.14,16,12),skin,head,s*.68,-.02,0);
+ // glasses frame
+ const frame=new THREE.Group();head.add(frame);
+ const glassMat=new THREE.MeshStandardMaterial({color:0x15191f,roughness:.4,metalness:.35});
+ for(const s of [-1,1]){const ring=makeMesh(new THREE.TorusGeometry(.235,.035,8,32),glassMat,frame,s*.27,.06,.62);ring.scale.set(1,.78,1);}
+ makeMesh(new THREE.BoxGeometry(.13,.045,.04),glassMat,frame,0,.06,.63);
+ // eyes
+ const eyeWhite=roundedMaterial("#fff"),pupil=roundedMaterial("#20252e");
+ for(const s of [-1,1]){const e=makeMesh(new THREE.SphereGeometry(.075,16,12),eyeWhite,head,s*.27,.045,.63);e.scale.set(1,.65,.4);eyes.push(e);makeMesh(new THREE.SphereGeometry(.035,12,10),pupil,head,s*.27,.04,.665);}
+ mouth=makeMesh(new THREE.SphereGeometry(.09,16,10),roundedMaterial("#8d4546"),head,0,-.29,.58);mouth.scale.set(.8,.22,.18);
+ // arms
+ armL=new THREE.Group();armR=new THREE.Group();armL.position.set(-.69,.83,0);armR.position.set(.69,.83,0);bodyMesh.add(armL,armR);
+ for(const [arm,side] of [[armL,-1],[armR,1]]){
+  makeMesh(new THREE.CapsuleGeometry(.16,.75,5,10),navy,arm,side*.08,-.48,0).rotation.z=side*-.18;
+  // 袖口白色细条与手部
+  makeMesh(new THREE.CylinderGeometry(.164,.164,.11,16),trim,arm,side*.16,-.88,0).rotation.z=side*-.18;
+  makeMesh(new THREE.SphereGeometry(.17,16,12),skin,arm,side*.16,-1.02,.02);
+ }
+ const floor=makeMesh(new THREE.CircleGeometry(1.2,48),new THREE.MeshBasicMaterial({color:0x16304b,transparent:true,opacity:.42}),avatar,0,-1.1,0);floor.rotation.x=-Math.PI/2;floor.scale.set(1.2,.42,1);
+ clock=new THREE.Clock();animate();
+ let dragging=false,lastX=0,lastY=0;
+ renderer.domElement.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId);});
+ renderer.domElement.addEventListener("pointermove",e=>{if(!dragging)return;avatar.rotation.y+=(e.clientX-lastX)*.009;avatar.rotation.x=THREE.MathUtils.clamp(avatar.rotation.x+(e.clientY-lastY)*.004,-.25,.25);lastX=e.clientX;lastY=e.clientY;});
+ renderer.domElement.addEventListener("pointerup",()=>dragging=false);renderer.domElement.addEventListener("pointercancel",()=>dragging=false);
+ renderer.domElement.addEventListener("wheel",e=>{camera.position.z=THREE.MathUtils.clamp(camera.position.z+e.deltaY*.004,5.4,9.5);},{passive:true});
+ window.addEventListener("resize",resize3d);
+}
+function resize3d(){if(!renderer)return;const w=stage.clientWidth,h=stage.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);}
+function animate(){
+ requestAnimationFrame(animate);const t=clock.getElapsedTime();
+ if(avatar){avatar.position.y=Math.sin(t*1.3)*.035;head.rotation.y=Math.sin(t*.8)*.08;head.rotation.x=Math.sin(t*1.15)*.025;
+  if(action==="nod"){head.rotation.x=Math.sin(t*8)*.22;if(Math.sin(t*8)>0.95)action="idle";}
+  if(action==="wave"){armR.rotation.z=Math.sin(t*10)*.75-.35;if(t-actionStart>1.8){action="idle";armR.rotation.z=0;}}
+  if(expression==="sleepy"){head.rotation.x=.12;eyes.forEach(e=>e.scale.y=.18);}
+  else if(expression==="surprised"){eyes.forEach(e=>e.scale.y=.95);mouth.scale.y=.75;}
+  else if(expression==="annoyed"){eyes.forEach(e=>e.scale.y=.42);mouth.scale.y=.12;}
+  else {eyes.forEach(e=>e.scale.y=.65);mouth.scale.y=.22;}
+ }
+ renderer.render(scene,camera);
+}
+let actionStart=0;
+function setExpression(v){expression=v;const labels={normal:"正常待机",sleepy:"困倦模式",surprised:"惊讶模式",annoyed:"无语模式"};document.getElementById("avatar-status").textContent="状态："+labels[v];}
+function playAction(v){if(v==="reset"){avatar.rotation.set(0,0,0);camera.position.set(0,1.55,7.5);action="idle";}else{action=v;actionStart=clock.getElapsedTime();}document.getElementById("avatar-status").textContent="状态："+(v==="nod"?"正在点头":v==="wave"?"正在挥手":"视角已复位");}
+const outfitColors=["#b51f36","#17191e","#e7e9ed","#263b59","#28604d"];
+function setOutfit(i){
+ outfitIndex=i;
+ const color=new THREE.Color(i===0?"#1d344e":outfitColors[i]);
+ bodyMesh.children[0].material.color.copy(color);
+ // 首套为照片中的红蓝校服；其余套装通过改变外套主色呈现
+ const redPanel=new THREE.Color(i===0?"#b51f36":outfitColors[i]);
+ bodyMesh.children[1].material.color.copy(redPanel);
+ bodyMesh.children[2].material.color.copy(redPanel);
+ document.getElementById("avatar-quote").textContent=["按参考照片还原红蓝校服风格。","黑色休闲风，低调一点。","今天走清爽路线。","科幻感拉满，nb了。","运动模式启动！"][i];
+}
+function randomOutfit(){setOutfit(Math.floor(Math.random()*outfitColors.length));}
+try{buildAvatar();}catch(err){console.error("3D 初始化失败",err);stage.insertAdjacentHTML("beforeend","<p style='position:absolute;inset:40% 10px auto;text-align:center'>3D 场景初始化失败，请刷新页面或检查浏览器 WebGL 支持。</p>");}
+
+/* 课堂小游戏：老师回头期间点击会结束游戏 */
+const canvas=document.getElementById("gameCanvas"),ctx=canvas.getContext("2d");let gameW=0,gameH=0,score=0,over=false,looking=false,tick=0,shots=[];
+function resizeGame(){const r=canvas.getBoundingClientRect();const d=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.floor(r.width*d));canvas.height=Math.max(1,Math.floor(r.height*d));gameW=canvas.width;gameH=canvas.height;ctx.setTransform(d,0,0,d,0,0);}
+window.addEventListener("resize",resizeGame);resizeGame();
+function finishGame(message){over=true;document.getElementById("game-reason").textContent=message;document.getElementById("game-over").style.display="flex";}
+function restartGame(){score=0;over=false;looking=false;tick=0;shots=[];document.getElementById("score").textContent="0";document.getElementById("game-over").style.display="none";document.getElementById("game-alert").textContent="老师背对着你时再点击目标";}
+canvas.addEventListener("pointerdown",e=>{if(over)return;if(looking){finishGame("老师回头时被发现啦！");return;}const r=canvas.getBoundingClientRect();shots.push({x:r.width*.5,y:r.height-12,tx:e.clientX-r.left,ty:e.clientY-r.top});});
+function drawGame(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!over){tick++;if(tick%230===0){looking=!looking;document.getElementById("game-alert").textContent=looking?"⚠️ 老师回头了！":"老师转回去了，抓紧机会！";}
+ctx.clearRect(0,0,w,h);ctx.fillStyle="#152238";ctx.fillRect(w*.08,h*.16,w*.84,h*.12);ctx.fillStyle="#e8edf4";ctx.fillRect(w*.1,h*.7,w*.8,5);
+ctx.fillStyle=looking?"#d94a4a":"#d5a783";ctx.beginPath();ctx.arc(w*.22,h*.43,17,0,Math.PI*2);ctx.fill();ctx.fillStyle="#f4f5f7";ctx.fillRect(w*.19,h*.47,25,65);
+ctx.fillStyle="#b63843";ctx.fillRect(w*.67,h*.52,48,72);ctx.fillStyle="#e8bd9c";ctx.beginPath();ctx.arc(w*.695,h*.48,17,0,Math.PI*2);ctx.fill();
+shots.forEach((s,i)=>{const dx=s.tx-s.x,dy=s.ty-s.y,dist=Math.hypot(dx,dy);if(dist<12){score+=10;document.getElementById("score").textContent=score;shots.splice(i,1);}else{s.x+=dx/dist*9;s.y+=dy/dist*9;ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(s.x,s.y,4,0,Math.PI*2);ctx.fill();}});
+}requestAnimationFrame(drawGame);}
+drawGame();
+
+/* 本地关键词 AI 与数字人口型/表情联动 */
+const messages=document.getElementById("chatMessages"),input=document.getElementById("chatInput");
+function addMessage(text,type){const d=document.createElement("div");d.className="msg "+type;d.textContent=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight;}
+function getReply(s){const t=s.toLowerCase();if(/数学|方程|函数|几何|物理|题/.test(t)){setExpression("normal");return "我的老天爷啊，终于来点正经的了！把题目条件和你卡住的步骤发来，咱们一步一步拆。";}if(/困|睡|熬夜|上课/.test(t)){setExpression("sleepy");return "别说了，眼皮已经开始打架了……不过先把今天的任务完成，nb了。";}if(/你好|嗨|在吗/.test(t)){setExpression("surprised");return "在在在！有什么事？";}if(/衣服|穿|帅/.test(t)){randomOutfit();return "这套怎么样？我的老天爷啊，审美在线。";}if(/滚|sb|傻/.test(t)){setExpression("annoyed");return "你有病吧？开个玩笑可以，咱们好好聊天。";}setExpression("normal");return ["666，你这个问题有点意思。","我的老天爷啊，让我想想……","可以可以，继续说，我听着呢。","nb了，这话题展开讲讲。"][Math.floor(Math.random()*4)];}
+document.getElementById("chatForm").addEventListener("submit",e=>{e.preventDefault();const s=input.value.trim();if(!s)return;addMessage(s,"user");input.value="";setExpression("normal");const reply=getReply(s);setTimeout(()=>{addMessage(reply,"ai");document.getElementById("avatar-quote").textContent=reply;playAction("nod");},450);});
+window.addEventListener("offline",()=>{const n=document.createElement("div");n.textContent="网络已断开：3D CDN 与 Giscus 可能暂时无法加载。";n.style.cssText="position:fixed;bottom:12px;left:12px;right:12px;background:#8d2929;padding:10px;border-radius:12px;text-align:center;z-index:100";n.id="offlineNotice";document.body.appendChild(n);});
+window.addEventListener("online",()=>document.getElementById("offlineNotice")?.remove());
+window.addEventListener("error",e=>console.error("页面运行错误：",e.message));
+</script>
+</body>
+</html>
